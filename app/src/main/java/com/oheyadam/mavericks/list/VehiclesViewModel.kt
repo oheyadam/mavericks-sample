@@ -4,23 +4,15 @@ import com.airbnb.mvrx.MavericksViewModel
 import com.airbnb.mvrx.MavericksViewModelFactory
 import com.oheyadam.mavericks.di.AssistedViewModelFactory
 import com.oheyadam.mavericks.di.hiltMavericksViewModelFactory
-import com.oheyadam.mavericks.list.UiEvent.GoToVehicle
-import com.oheyadam.mavericks.list.UiEvent.ShowGolfSnackbar
 import com.oheyadam.mavericks.repository.domain.GOLF_ID
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.launch
 
 class VehiclesViewModel @AssistedInject constructor(
     @Assisted initialState: VehiclesState,
     private val getVehicles: GetVehicles,
 ) : MavericksViewModel<VehiclesState>(initialState) {
-
-    private val mutableUiEvents = MutableSharedFlow<UiEvent>()
-    val uiEvents: SharedFlow<UiEvent> = mutableUiEvents
 
     init {
         fetchVehicles()
@@ -42,10 +34,16 @@ class VehiclesViewModel @AssistedInject constructor(
         }.execute(retainValue = VehiclesState::request) { copy(request = it) }
     }
 
+    fun resetNavigationState() = setState {
+        resetSelectedVehicleId()
+    }
+
     private fun onVehicleClicked(vehicleId: String) {
-        viewModelScope.launch {
-            val emission = if (vehicleId == GOLF_ID) ShowGolfSnackbar else GoToVehicle(vehicleId)
-            mutableUiEvents.emit(emission)
+        setState {
+            when (vehicleId) {
+                GOLF_ID -> copy(selectedGolfSnackbar = true)
+                else -> copy(selectedVehicleId = vehicleId)
+            }
         }
     }
 

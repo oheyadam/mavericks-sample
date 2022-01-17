@@ -8,12 +8,13 @@ import com.oheyadam.mavericks.list.model.VehicleItem
 
 data class VehiclesState(
     val request: Async<List<VehicleItem>> = Uninitialized,
+    val selectedVehicleId: String? = null,
+    val selectedGolfSnackbar: Boolean = false
 ) : MavericksState {
     val vehicles: List<VehicleItem> = request() ?: emptyList()
     val isLoading: Boolean = request is Loading
-}
 
-sealed class UiEvent {
-    data class GoToVehicle(val vehicleId: String) : UiEvent()
-    object ShowGolfSnackbar : UiEvent()
+    fun resetSelectedVehicleId(): VehiclesState {
+        return copy(selectedVehicleId = null)
+    }
 }

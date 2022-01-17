@@ -3,9 +3,6 @@ package com.oheyadam.mavericks.list
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.mvrx.MavericksView
@@ -15,12 +12,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.oheyadam.mavericks.R
 import com.oheyadam.mavericks.databinding.VehiclesFragmentBinding
 import com.oheyadam.mavericks.detail.VehicleFragment
-import com.oheyadam.mavericks.list.UiEvent.GoToVehicle
-import com.oheyadam.mavericks.list.UiEvent.ShowGolfSnackbar
 import com.oheyadam.mavericks.viewbinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class VehiclesFragment : Fragment(R.layout.vehicles_fragment), MavericksView {
@@ -34,16 +27,11 @@ class VehiclesFragment : Fragment(R.layout.vehicles_fragment), MavericksView {
         /*viewModel.onEach(VehiclesState::vehicles) { vehicles ->
             vehiclesAdapter.submitList(vehicles)
         }*/
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiEvents
-                    .collect { event ->
-                        when (event) {
-                            is GoToVehicle -> showVehicleDetails(event)
-                            ShowGolfSnackbar -> showSnackbar()
-                        }
-                    }
-            }
+        viewModel.onEach(VehiclesState::selectedVehicleId, uniqueOnly()) { selectedVehicleId ->
+            if (selectedVehicleId != null) showVehicleDetails(selectedVehicleId)
+        }
+        viewModel.onEach(VehiclesState::selectedGolfSnackbar, uniqueOnly()) { showSnackbar ->
+            if (showSnackbar) showSnackbar()
         }
     }
 
@@ -64,10 +52,10 @@ class VehiclesFragment : Fragment(R.layout.vehicles_fragment), MavericksView {
         }
     }
 
-    private fun showVehicleDetails(event: GoToVehicle) {
+    private fun showVehicleDetails(vehicleId: String) {
         findNavController().navigate(
             R.id.action_VehiclesFragment_to_VehicleFragment,
-            VehicleFragment.args(event.vehicleId)
+            VehicleFragment.args(vehicleId)
         )
     }
 

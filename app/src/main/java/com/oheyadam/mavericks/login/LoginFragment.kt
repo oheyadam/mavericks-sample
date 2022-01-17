@@ -22,8 +22,9 @@ class LoginFragment : Fragment(R.layout.login_fragment), MavericksView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Unique only will prevent the event from happening again if the user rotates the screen or returns to this fragment.
         viewModel.onAsync(
-            LoginState::request,
+            LoginState::request, uniqueOnly(),
             onSuccess = { findNavController().navigate(R.id.action_LoginFragment_to_VehiclesFragment) }
         )
     }
