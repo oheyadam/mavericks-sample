@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefresh"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:paddingBottom="@dimen/margin_default"
+    android:paddingEnd="@dimen/margin_default"
+    android:paddingStart="@dimen/margin_default"
+    tools:context=".list.VehiclesFragment">
+
+    <FrameLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/vehicles"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            tools:listitem="@layout/vehicle_item" />
+
+    </FrameLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

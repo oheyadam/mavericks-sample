@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_default"
+    tools:context=".detail.VehicleFragment">
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress"
+        android:indeterminate="true"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        tools:visibility="gone" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/manufacturer"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
+        tools:text="Volkswagen" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/model"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
+        tools:text="Golf" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/LoginFragment">
+
+    <fragment
+        android:id="@+id/LoginFragment"
+        android:name="com.oheyadam.mavericks.login.LoginFragment"
+        android:label="@string/login_fragment_label"
+        tools:layout="@layout/login_fragment">
+
+        <action
+            android:id="@+id/action_LoginFragment_to_VehiclesFragment"
+            app:destination="@id/VehiclesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/VehiclesFragment"
+        android:name="com.oheyadam.mavericks.list.VehiclesFragment"
+        android:label="@string/vehicles_fragment_label"
+        tools:layout="@layout/vehicles_fragment">
+
+        <action
+            android:id="@+id/action_VehiclesFragment_to_VehicleFragment"
+            app:destination="@id/VehicleFragment" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/VehicleFragment"
+        android:name="com.oheyadam.mavericks.detail.VehicleFragment"
+        android:label="@string/vehicle_fragment_label"
+        tools:layout="@layout/vehicle_fragment" />
+
+</navigation>

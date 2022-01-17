@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:elevation="@dimen/margin_half"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_default"
+    android:layout_width="match_parent"
+    app:cardCornerRadius="@dimen/margin_half"
+    app:contentPadding="@dimen/margin_default">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/vehicleModel"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            tools:text="Golf" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</com.google.android.material.card.MaterialCardView>
